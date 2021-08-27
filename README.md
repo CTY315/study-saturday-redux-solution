@@ -16,3 +16,12 @@
     - Hint: Remember to replace the `DUMMY_DATA` with your "real" data
     - Hint: You'll need the student's `id` in order to fetch their data. Where can you get that from?
 - [ ] Once done and tested, `git checkout cycle-4-bonus`
+
+
+Detail Steps:
+- add single student: action type, action creator, thunk creator, initial state, reducer
+- connect single student component with the store: edit export default
+- create mapState, mapDispatch function
+- add componentDidMount function and call the needed function
+- get the data and log in console
+-edit the render page

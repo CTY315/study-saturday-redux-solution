@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from "react-redux"
+import { fetchSingleStudents } from "../redux/store"
 
 const avgGrade = (tests) => {
   return Math.round(
@@ -6,43 +8,53 @@ const avgGrade = (tests) => {
   );
 };
 
-const DUMMY_DATA = {
-  id: 1,
-  fullName: "Student McDummydata",
-  firstName: "Student",
-  lastName: "McDummydata",
-  email: "sm@dummydata.com",
-  tests: [
-    {
-      id: 1,
-      subject: "Computer Science",
-      grade: 45,
-    },
-    {
-      id: 6,
-      subject: "Art",
-      grade: 60,
-    },
-    {
-      id: 12,
-      subject: "ullam",
-      grade: 45,
-    },
-  ],
-};
+// const DUMMY_DATA = {
+//   id: 1,
+//   fullName: "Student McDummydata",
+//   firstName: "Student",
+//   lastName: "McDummydata",
+//   email: "sm@dummydata.com",
+//   tests: [
+//     {
+//       id: 1,
+//       subject: "Computer Science",
+//       grade: 45,
+//     },
+//     {
+//       id: 6,
+//       subject: "Art",
+//       grade: 60,
+//     },
+//     {
+//       id: 12,
+//       subject: "ullam",
+//       grade: 45,
+//     },
+//   ],
+// };
 
 class SingleStudent extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchStudentInReact(this.props.match.params.id)
+  }
+
   render() {
-    const student = DUMMY_DATA;
-    const hasTests = student.tests.length;
+    const student = this.props.studentInReact;
+    let hasTests = null;
+    let fullName = null;
+    if (student) {
+      hasTests = student.tests.length
+      fullName = student.fullName;
+    }
+
 
     return (
       <div>
-        <h3>Detail: {student.fullName}</h3>
+        <h3>Detail: {fullName}</h3>
         {hasTests ? (
           <React.Fragment>
             <h3>Average grade: {avgGrade(student.tests)}%</h3>
@@ -75,4 +87,12 @@ class SingleStudent extends React.Component {
   }
 };
 
-export default SingleStudent;
+const mapState = (state) => ({
+  studentInReact: state.student
+})
+
+const mapDispatch = (dispatch) => ({
+  fetchStudentInReact: (id) => dispatch(fetchSingleStudents(id))
+})
+
+export default connect(mapState, mapDispatch)(SingleStudent);
