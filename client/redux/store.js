@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware} from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import loggerMiddleware from 'redux-logger';
 import axios from 'axios';
 import thunkMiddleware from 'redux-thunk';
@@ -22,13 +22,20 @@ const gotSingleStudent = (student) => ({
 
 // THUNK CREATORS go here:
 export const fetchStudents = () => async (dispatch) => {
-  const {data} = await axios.get('/api/students');
+  const { data } = await axios.get('/api/students');
   dispatch(gotStudents(data));
 }
 
 export const fetchSingleStudent = (id) => async (dispatch) => {
-  const {data} = await axios.get(`/api/students/${id}`);
+  const { data } = await axios.get(`/api/students/${id}`);
   dispatch(gotSingleStudent(data));
+}
+
+export const deleteStudent = (id) => async (dispatch) => {
+  await axios.delete(`/api/students/${id}`);
+  const { data } = await axios.get('/api/students');
+  dispatch(gotStudents(data));
+
 }
 
 
@@ -38,7 +45,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case GOT_STUDENTS:
       return {
         ...state,
