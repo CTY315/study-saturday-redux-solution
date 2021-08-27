@@ -1,7 +1,7 @@
 import React from 'react';
-import {fetchStudents} from '../redux/store';
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import { fetchStudents } from '../redux/store';
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class StudentList extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class StudentList extends React.Component {
   render() {
     return (
       <ul>
-        {this.props.students.map((student) => (
+        {this.props.students && this.props.students.map((student) => (
           <li key={student.id}>
             <div>
               <p>Name: {student.fullName}</p>
