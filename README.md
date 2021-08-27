@@ -24,4 +24,4 @@ Detail Steps:
 - create mapState, mapDispatch function
 - add componentDidMount function and call the needed function
 - get the data and log in console
--edit the render page
+- edit the render page (need to add if/else student to check if sinfle stdent is undefined)
